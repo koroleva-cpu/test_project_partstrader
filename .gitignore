@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+
+# Playwright output
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# Local environment overrides
+.env
+
+# IDE
+.idea/
+
+# Exercise brief and working notes, kept local
+test_docs/
