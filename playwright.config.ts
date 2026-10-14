@@ -18,6 +18,8 @@ export default defineConfig({
     : [['list'], ['html', { open: 'never' }]],
   use: {
     baseURL: environment.baseUrl,
+    // The site marks its form controls with data-qa, so getByTestId targets those.
+    testIdAttribute: 'data-qa',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
   },
