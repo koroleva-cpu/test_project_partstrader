@@ -13,10 +13,6 @@ export class CartPage {
     this.checkoutModal = page.locator('#checkoutModal');
   }
 
-  async open(): Promise<void> {
-    await this.page.goto('/view_cart');
-  }
-
   /** Goes to checkout when logged in; otherwise the site opens a dialog asking to register or log in. */
   async proceedToCheckout(): Promise<void> {
     await this.page.getByText('Proceed To Checkout').click();

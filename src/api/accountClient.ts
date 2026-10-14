@@ -8,21 +8,18 @@ export interface Credentials {
 
 export type HttpMethod = 'POST' | 'DELETE';
 
+/**
+ * The outcome as reported in the JSON body. The HTTP status is left out on
+ * purpose: the API answers 200 for every outcome, so it carries no information.
+ */
 export interface ApiResult {
-  /** The transport status. The API answers 200 even for errors, so this is rarely the one to assert on. */
-  httpStatus: number;
-  /** The real outcome, reported in the JSON body. */
   responseCode: number;
   message: string;
 }
 
 async function toResult(response: APIResponse): Promise<ApiResult> {
   const body = await response.json();
-  return {
-    httpStatus: response.status(),
-    responseCode: body.responseCode,
-    message: body.message,
-  };
+  return { responseCode: body.responseCode, message: body.message };
 }
 
 /**
