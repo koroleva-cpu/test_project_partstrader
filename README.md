@@ -2,7 +2,7 @@
 
 UI and API test automation for [automationexercise.com](https://automationexercise.com/), built with Playwright and TypeScript.
 
-> **Status:** the API tests for `verifyLogin` (API 7–10 plus edge cases) are in place. The UI tests (Test Cases 14 and 15) are still to come.
+It covers two UI test cases, [Test Case 14 and 15](https://automationexercise.com/test_cases) (place an order, registering while or before checkout), and the `verifyLogin` API cases, [API 7–10](https://automationexercise.com/api_list), plus edge cases.
 
 ## Stack
 

@@ -13,6 +13,8 @@ export default defineConfig({
   // Retries hide flakiness locally; in CI they keep a shared live site from blocking a PR.
   retries: isCI ? 2 : 0,
   workers: isCI ? 2 : undefined,
+  // Watch mode adds a pause to every action, so a full order flow outlasts the default 30s.
+  timeout: slowMo > 0 ? 10 * 60_000 : 30_000,
   reporter: isCI
     ? [['github'], ['html', { open: 'never' }]]
     : [['list'], ['html', { open: 'never' }]],
