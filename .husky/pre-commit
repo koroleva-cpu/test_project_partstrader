@@ -1,0 +1,6 @@
+# Runs before every commit; any failing step aborts the commit.
+# The UI tests are left to CI: they take far longer, open browsers and depend
+# on the live site's speed, which would make every commit slow and flaky.
+npm run typecheck
+npm run lint
+npm run test:api
