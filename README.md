@@ -2,7 +2,7 @@
 
 UI and API test automation for [automationexercise.com](https://automationexercise.com/), built with Playwright and TypeScript.
 
-> **Status:** the framework is scaffolded and two smoke tests prove the setup. The exercise test cases (UI 14 and 15, API 7–10) are still to come.
+> **Status:** the API tests for `verifyLogin` (API 7–10 plus edge cases) are in place. The UI tests (Test Cases 14 and 15) are still to come.
 
 ## Stack
 

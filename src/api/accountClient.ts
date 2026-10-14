@@ -6,6 +6,8 @@ export interface Credentials {
   password: string;
 }
 
+export type HttpMethod = 'POST' | 'DELETE';
+
 export interface ApiResult {
   /** The transport status. The API answers 200 even for errors, so this is rarely the one to assert on. */
   httpStatus: number;
@@ -65,13 +67,19 @@ export class AccountClient {
     return toResult(response);
   }
 
-  /** Either field may be left out to exercise the "missing parameter" responses. */
-  async verifyLogin({ email, password }: Partial<Credentials>): Promise<ApiResult> {
+  /**
+   * Either field may be left out to exercise the "missing parameter" responses,
+   * and `method` may be changed to exercise the "method not supported" response.
+   */
+  async verifyLogin(
+    { email, password }: Partial<Credentials> = {},
+    method: HttpMethod = 'POST',
+  ): Promise<ApiResult> {
     const form: Record<string, string> = {};
     if (email !== undefined) form.email = email;
     if (password !== undefined) form.password = password;
 
-    const response = await this.request.post('/api/verifyLogin', { form });
+    const response = await this.request.fetch('/api/verifyLogin', { method, form });
     return toResult(response);
   }
 }
