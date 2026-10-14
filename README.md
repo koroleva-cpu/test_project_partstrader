@@ -70,8 +70,12 @@ If the selected environment does not respond, every test is skipped with the rea
 
 ```
 src/
+  api/         client for the account API endpoints
   config/      environment settings and the reachability check
+  data/        Faker factories for users and payment cards
   fixtures/    the project's `test` and `expect`, with shared fixtures
+  flows/       steps that span several pages, shared between tests
+  pages/       page objects and reusable page components
 tests/
   api/         API tests (no browser)
   ui/          browser tests
