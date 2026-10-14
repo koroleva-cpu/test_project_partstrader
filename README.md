@@ -1,84 +1,42 @@
 # Automation Testing Exercise
 
-UI and API test automation for [automationexercise.com](https://automationexercise.com/), built with Playwright and TypeScript.
+Automated UI and API tests for [automationexercise.com](https://automationexercise.com/), written in TypeScript with Playwright.
 
-It covers two UI test cases, [Test Case 14 and 15](https://automationexercise.com/test_cases) (place an order, registering while or before checkout), and the `verifyLogin` API cases, [API 7–10](https://automationexercise.com/api_list), plus edge cases.
+## What is tested
 
-## Stack
+| Area | What | Source |
+|------|------|--------|
+| UI | Test Case 14: Place Order: Register while Checkout | [Test cases](https://automationexercise.com/test_cases) |
+| UI | Test Case 15: Place Order: Register before Checkout | [Test cases](https://automationexercise.com/test_cases) |
+| API | `verifyLogin`: API 7, 8, 9 and 10, plus three edge cases | [API list](https://automationexercise.com/api_list) |
 
-| Purpose | Tool |
-|---------|------|
-| Test framework | [Playwright Test](https://playwright.dev/) |
-| Language | TypeScript (strict) |
-| Lint and format | [Biome](https://biomejs.dev/) |
-| Test data | [Faker](https://fakerjs.dev/) |
+## Tools
 
-## Requirements
+- [Playwright Test](https://playwright.dev/) as the test framework
+- TypeScript in strict mode
+- [Biome](https://biomejs.dev/) for linting and formatting
+- [Faker](https://fakerjs.dev/) for test data
+- [Husky](https://typicode.github.io/husky/) pre-commit hook: runs the typecheck, lint and API tests before every commit
+- GitHub Actions: runs the typecheck, lint and all tests on every pull request
 
-- Node.js 20 or newer
-- npm
-
-## Setup
-
-```
-npm ci
-npx playwright install chromium
-```
-
-## Running the tests
-
-| Command | What it does |
-|---------|--------------|
-| `npm test` | Runs every test |
-| `npm run test:api` | API tests only, no browser |
-| `npm run test:ui` | Browser tests only |
-| `npm run report` | Opens the HTML report from the last run |
-| `npm run typecheck` | Compiles the TypeScript without emitting files |
-| `npm run lint` | Checks lint and formatting |
-| `npm run lint:fix` | Fixes what can be fixed automatically |
-
-For debugging, `npx playwright test --ui` opens the interactive runner and `npx playwright test --debug` steps through with the inspector.
-
-## Configuration
-
-Settings come from environment variables. Set them in the shell, or copy `.env.example` to `.env`; the shell takes precedence.
-
-| Variable | Values | Default | Purpose |
-|----------|--------|---------|---------|
-| `TEST_ENV` | `dev`, `test` | `dev` | Selects the base URL and user password |
-| `SLOW_MO` | milliseconds | unset | Opens a visible browser and pauses before each action |
-| `USER_PASSWORD` | any string | per environment | Overrides the password for generated users |
-
-| Environment | Base URL |
-|-------------|----------|
-| `dev` | https://automationexercise.com/ |
-| `test` | https://test.automationexercise.com/ |
-
-Setting a variable for one run:
+## Project layout
 
 ```
-# PowerShell
-$env:TEST_ENV='test'; npm test
-
-# bash
-TEST_ENV=test npm test
-```
-
-If the selected environment does not respond, every test is skipped with the reason instead of failing. The `test` environment is currently unreachable, so it is the easy way to see this.
-
-## Project structure
-
-```
+.github/workflows/ci.yml   checks that run on pull requests
+.husky/pre-commit          checks that run before each commit
 src/
-  api/         client for the account API endpoints
+  api/         client for the account API
   config/      environment settings and the reachability check
   data/        Faker factories for users and payment cards
-  fixtures/    the project's `test` and `expect`, with shared fixtures
-  flows/       steps that span several pages, shared between tests
-  pages/       page objects and reusable page components
+  fixtures/    the project's test and expect, with shared fixtures
+  flows/       steps that span several pages
+  pages/       page objects; components/ holds parts shared by several pages
 tests/
-  api/         API tests (no browser)
-  ui/          browser tests
+  api/         API tests
+  ui/          UI tests
 ```
 
-Specs import `test` and `expect` from `src/fixtures`, not from `@playwright/test`, so every test gets the shared fixtures.
+## Documentation
+
+- [GETTING_STARTED.md](GETTING_STARTED.md): how to set up and run the tests, how they are built, and troubleshooting
+- [ISSUES.md](ISSUES.md): defects found in the application
